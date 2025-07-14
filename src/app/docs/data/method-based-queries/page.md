@@ -6,7 +6,9 @@ nextjs:
     description: Learn how to write dynamic queries using Method Name-Based Queries
 ---
 
-In addition to annotation-based queries using @Query, Quartz also supports method name-based queries, a convention-over-configuration approach inspired by Spring Data. This lets you define dynamic queries simply by naming your repository methods using a specific pattern.
+In addition to annotation-based queries using **@Query**, Quartz also supports method name-based queries, 
+a convention-over-configuration approach inspired by Spring Data. This lets you define dynamic queries 
+simply by naming your repository methods using a specific pattern.
 
 Method-based queries are parsed automatically and converted into structured query definitions at runtime.
 
@@ -60,7 +62,7 @@ Quartz recognizes several suffixes to indicate specific operations:
 
 ## Logical Conditions
 
-Method names can chain conditions using 'And' and 'Or'. Example:
+Method names can chain conditions using **'And'** and **'Or'**. Example:
 
 ```java
 List<User> findByStatusOrRoleAndActive(String status, String role);
@@ -72,7 +74,7 @@ This would be parsed as:
 find where status = ? or (role = ? and active = ?)
 ```
 
-Quartz respects logical precedence and inserts parentheses automatically when mixing 'And' and 'Or'.
+Quartz respects logical precedence and inserts parentheses automatically when mixing **'And'** and **'Or'**.
 
 ## Ordering and Limits
 
@@ -114,7 +116,7 @@ This resolves department.name as the property path.
 
 ## Case-Insensitive Queries
 
-Use the IgnoreCase suffix to apply LOWER() function to both field and value:
+Use the IgnoreCase suffix to apply **LOWER()** function to both field and value:
 
 ```java
 Optional<User> findByEmailIgnoreCase(String email);
@@ -131,8 +133,3 @@ All parameters are positional. Their order in the method signature determines th
 Special literals like true, false, or null (used in IsNull, True, False, etc.) are injected directly into the query.
 
 ---
-
-## Next Steps
-
-* [Pagination & Sorting](/docs/data/pagination)
-* [Creating Entities](/docs/data/creating-entities)

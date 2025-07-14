@@ -8,7 +8,7 @@ nextjs:
 
 ## Declarative Transaction Management
 
-Quartz Data provides built-in support for declarative transactions using standard Jakarta annotations like `@Transactional`. The framework wraps method calls in managed transactions using an interceptor-based approach, without relying on Spring or a heavyweight container.
+Quartz Data provides built-in support for declarative transactions using standard Jakarta annotations like **@Transactional**. The framework wraps method calls in managed transactions using an interceptor-based approach, without relying on Spring or a heavyweight container.
 
 This allows you to control transaction propagation, isolation, rollback behavior, and timeouts directly on methods or classes.
 
@@ -29,7 +29,7 @@ This activates Quartz's internal transaction interceptor.
 
 ### Using `@Transactional`
 
-Once enabled, you can annotate methods or entire classes with `@jakarta.transaction.Transactional` or `@org.springframework.transaction.annotation.Transactional`:
+Once enabled, you can annotate methods or entire classes with **@jakarta.transaction.Transactional** or **@org.springframework.transaction.annotation.Transactional**:
 
 ```java
 @Transactional
@@ -55,7 +55,7 @@ public void readOperation() {
 
 ### Rollback Behavior
 
-By default, any `RuntimeException` will cause a rollback. You can explicitly control rollback behavior with `rollbackFor` and `noRollbackFor`:
+By default, any **RuntimeException** will cause a rollback. You can explicitly control rollback behavior with **rollbackFor** and **noRollbackFor**:
 
 ```java
 @Transactional(rollbackFor = CustomCheckedException.class)
@@ -66,7 +66,7 @@ public void riskyOperation() throws CustomCheckedException {
 
 ### Cleanup Handling
 
-Quartz automatically closes the `EntityManager` and clears its context after transactional methods, ensuring no leaks.
+Quartz automatically closes the **EntityManager** and clears its context after transactional methods, ensuring no leaks.
 
 {% callout title="Note" %}
 Transactional support does not require Spring context. Quartz wires its own lightweight interceptor for `@Transactional` and manages lifecycle internally.

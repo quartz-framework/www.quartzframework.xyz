@@ -61,8 +61,8 @@ public class Product {
 
 An entity must have exactly one identity field. Quartz will look for either:
 
-1.	A field annotated with @jakarta.persistence.Id
-2.	A field annotated with @xyz.quartzframework.data.entity.Identity
+1. A field annotated with @jakarta.persistence.Id
+2. A field annotated with @xyz.quartzframework.data.entity.Identity
 
 If both annotations are present on different fields, Quartz will throw an error at runtime.
 
@@ -99,7 +99,7 @@ Optional<User> findByEmailAddress(String email);
 
 {% callout title="You should know" %}
 
-If no @Attribute is present, the default query field name is the Java field name (email → email, createdAt → createdAt, etc.)
+If no `@Attribute` is present, the default query field name is the Java field name (email → email, createdAt → createdAt, etc.)
 
 {% /callout %}
 
@@ -110,7 +110,7 @@ If no @Attribute is present, the default query field name is the Java field name
 Quartz resolves fields in the following order:
 
 * Match by field name
-* Match by @Attribute alias (case-insensitive)
+* Match by **@Attribute** alias (case-insensitive)
 * Match nested properties using underscores or dot notation
 
 Examples:

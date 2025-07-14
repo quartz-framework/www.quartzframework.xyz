@@ -31,7 +31,7 @@ Quartz registers and initializes all **@Aspect** beans early in the lifecycle. T
 
 {% callout type="warning" title="You should know" %}
 
-All aspect beans must also be valid injectable or declared via `@Provide` to be properly managed by the container.
+All aspect beans must also be valid injectable or declared via **@Provide** to be properly managed by the container.
 
 {% /callout %}
 

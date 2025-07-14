@@ -10,7 +10,7 @@ Quartz supports fine-grained bean activation control through several conditional
 
 ## @Environment
 
-Defines in which environments the bean should be active. Accepts single or multiple names, and negation with !:
+Defines in which environments the bean should be active. Accepts single or multiple names, and negation with **!**:
 
 ```java
 @Environment("dev")

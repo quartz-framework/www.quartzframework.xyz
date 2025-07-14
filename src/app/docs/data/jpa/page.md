@@ -69,7 +69,7 @@ quartz.data.jpa.datasource.driver=org.postgresql.Driver
 quartz.data.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 ```
 
-Additional tuning options are available under `quartz.data.hikari.*` and [`quartz.data.hibernate.*`](/docs/data/jpa/hibernate).
+Additional tuning options are available under [`quartz.data.hikari.*`](/docs/data/jpa/datasource)and [`quartz.data.hibernate.*`](/docs/data/jpa/hibernate).
 
 ### 5. Enable Transactional Support (Optional)
 

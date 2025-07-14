@@ -140,7 +140,7 @@ public interface EmployeeStorage extends InMemoryStorage<Employee, UUID> {
 }
 ```
 
-The interface must be parameterized as `<Entity, ID>`, where `ID` matches the type of the identity field in your entity.
+The interface must be parameterized as **<Entity, ID>**, where **ID** matches the type of the identity field in your entity.
 
 This storage interface will be automatically discovered, registered, and made available for dependency injection.
 
@@ -160,12 +160,6 @@ public void printActiveEmployees() {
 }
 ```
 
-If using a module like `quartz-starter-data-jpa`, ensure your JPA configuration is correctly set up (e.g. persistence unit, entity scanning).
+If using a module like **quartz-starter-data-jpa**, ensure your JPA configuration is correctly set up (e.g. persistence unit, entity scanning).
 
 ---
-
-## What’s Next?
-
-* Learn about [Storage Interfaces](/docs/data/storage-interfaces)
-* Dive into the [Quartz Query Language (QQL)](/docs/data/qql)
-* Explore advanced [Method Name-Based Queries](/docs/data/method-based-queries)

@@ -6,7 +6,12 @@ nextjs:
     description: Learn how Quartz Framework configures HikariCP and JDBC connections with powerful, production-ready defaults and full YAML customization.
 ---
 
-Managing database connections efficiently is crucial for performance and scalability in any application. Quartz Data relies on HikariCP, a best-in-class JDBC connection pool, to ensure fast, lightweight, and resilient database access. This integration provides automatic bootstrapping of JDBC drivers and Hibernate dialects, with sensible defaults that work out-of-the-box, yet allows full customization when needed. Whether you're connecting to PostgreSQL, MySQL, Oracle, or H2, this section guides you through configuring your connection pool, overriding auto-detection, and leveraging fine-grained tuning options via YAML.
+Managing database connections efficiently is crucial for performance and scalability in any application. 
+Quartz Data relies on HikariCP, a best-in-class JDBC connection pool, to ensure fast, lightweight, and resilient database access. 
+This integration provides automatic bootstrapping of JDBC drivers and Hibernate dialects, 
+with sensible defaults that work out-of-the-box, yet allows full customization when needed. 
+Whether you're connecting to PostgreSQL, MySQL, Oracle, or H2, this section guides you through configuring your connection pool, 
+overriding auto-detection, and leveraging fine-grained tuning options via YAML.
 
 ---
 
@@ -16,11 +21,11 @@ The framework configures Hikari automatically based on the properties you provid
 
 Supported JDBC drivers (auto-detected if on the classpath):
 
-- PostgreSQL (`org.postgresql.Driver`)
-- MySQL (`com.mysql.cj.jdbc.Driver`)
-- SQL Server (`com.microsoft.sqlserver.jdbc.SQLServerDriver`)
-- H2 (`org.h2.Driver`)
-- Oracle (`oracle.jdbc.OracleDriver`)
+- PostgreSQL **('org.postgresql.Driver')**
+- MySQL **('com.mysql.cj.jdbc.Driver')**
+- SQL Server **('com.microsoft.sqlserver.jdbc.SQLServerDriver')**
+- H2 **('org.h2.Driver')**
+- Oracle **('oracle.jdbc.OracleDriver')**
 
 You can override detection explicitly via:
 
@@ -37,7 +42,7 @@ quartz:
 
 ## HikariCP Configuration Properties
 
-All HikariCP options are available under `quartz.data.hikari`. Here is a reference:
+All HikariCP options are available under **quartz.data.hikari**. Here is a reference:
 
 ```yaml
 quartz:
@@ -66,7 +71,8 @@ quartz:
 
 ## JPA Connection Properties
 
-Basic datasource settings are defined under the `quartz.data.jpa.datasource` and `quartz.data.jpa.connection` prefixes. These are typically used to define the connection URL, credentials, and transaction behaviors.
+Basic datasource settings are defined under the **quartz.data.jpa.datasource** and **quartz.data.jpa.connection** prefixes. 
+These are typically used to define the connection URL, credentials, and transaction behaviors.
 
 ```yaml
 quartz:

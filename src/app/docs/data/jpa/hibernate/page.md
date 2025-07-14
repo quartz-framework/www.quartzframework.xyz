@@ -8,19 +8,23 @@ nextjs:
 
 ---
 
-Hibernate is the default JPA engine used by Quartz Data. This section explains how the framework automatically configures Hibernate, how it integrates with your entities, and what settings are available to fine-tune its behavior. If you're coming from a traditional Spring JPA setup, you'll find most features here, but with a simplified and opinionated bootstrap process.
+Hibernate is the default JPA engine used by Quartz Data. This section explains how the framework automatically configures Hibernate, 
+how it integrates with your entities, and what settings are available to fine-tune its behavior. 
+If you're coming from a traditional Spring JPA setup, you'll find most features here, but with a simplified and opinionated bootstrap process.
 
 ## Hibernate Integration
 
-Quartz Data JPA uses Hibernate as its underlying persistence provider and configures it dynamically at runtime. It auto-registers a `PersistenceUnitInfo`, injects the managed entities, and boots Hibernate without the need for a `persistence.xml`.
+Quartz Data JPA uses Hibernate as its underlying persistence provider and configures it dynamically at runtime. 
+It **auto-registers** a **PersistenceUnitInfo**, injects the managed entities, and boots Hibernate **without the need** for a **persistence.xml**.
 
-You don’t need to manually configure `EntityManagerFactory` or `PersistenceProvider`, the bootstrapper does that for you.
+You don’t need to manually configure **EntityManagerFactory** or **PersistenceProvider**, the bootstrapper does that for you.
 
-Hibernate is configured using properties under the `quartz.data.hibernate` namespace.
+Hibernate is configured using properties under the **quartz.data.hibernate** namespace.
 
 ## Entity Definitions
 
-Quartz Data works seamlessly with standard Hibernate-compatible entity definitions. Entities must be annotated with `@jakarta.persistence.Entity`, and each must define a primary key using `@jakarta.persistence.Id`.
+Quartz Data works seamlessly with standard Hibernate-compatible entity definitions. 
+Entities must be annotated with **@jakarta.persistence.Entity**, and each must define a primary key using **@jakarta.persistence.Id**.
 
 Example:
 
@@ -42,7 +46,9 @@ public class User {
 
 ## Full HQL Support
 
-Quartz Data JPA offers full support for **Hibernate Query Language (HQL)** through the `@Query` annotation. This allows for expressive and flexible queries beyond method name conventions. You can write JPQL-style queries directly, including joins, projections, subqueries, and even use of constructors for DTO mapping.
+Quartz Data JPA offers full support for **Hibernate Query Language (HQL)** through the **@Query** annotation. 
+This allows for expressive and flexible queries beyond method name conventions. 
+You can write JPQL-style queries directly, including joins, projections, subqueries, and even use of constructors for DTO mapping.
 
 Here are some examples:
 

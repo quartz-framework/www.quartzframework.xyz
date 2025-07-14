@@ -10,9 +10,9 @@ Quartz Core defines the base architecture of the Quartz Framework, a lightweight
 
 It provides:
 
-- The structural backbone for all Quartz modules
-- Lightweight dependency injection and lifecycle handling
-- Modular context bootstrapping and plugin wiring
+* The structural backbone for all Quartz modules
+* Lightweight dependency injection and lifecycle handling
+* Modular context bootstrapping and plugin wiring
 
 By itself, Quartz Core doesn't offer plugin-specific behavior, instead, it exposes all the tools needed to build, wire, and configure systems on top of it. Think of it as the minimal runtime that other Quartz modules plug into.
 

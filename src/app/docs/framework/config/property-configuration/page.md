@@ -25,7 +25,7 @@ This expression means:
 
 - If not found, fallback to the default true
 
-You can use `${key:default}` syntax in any **@Property**.
+You can use **${key:default}** syntax in any **@Property**.
 
 ## Sources and Resolution Order
 

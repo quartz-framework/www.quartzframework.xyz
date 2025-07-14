@@ -12,7 +12,7 @@ Quartz Spigot Plugin Starter is the official entry point for building Spigot, Pa
 
 - Bootstraps a full-featured plugin context
 
-- Registers and initializes @Injectable, @Configurer, and @Bootstrapper beans
+- Registers and initializes **@Injectable**, **@Configurer**, and **@Bootstrapper** beans
 
 - Sets up your command system, event listeners, and task schedulers
 

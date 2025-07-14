@@ -10,7 +10,7 @@ nextjs:
 
 To enable pagination in a repository method, simply:
 * Add a Pagination parameter to the method. 
-* Return a Page<T>.
+* Return a **Page<T>**.
 
 Quartz will detect this pattern and apply paging semantics accordingly.
 
@@ -65,7 +65,7 @@ Pagination.ofSize(int size)              // default to page 0
 Pagination.unpaged()                     // disables pagination
 ```
 
-Pagination.unpaged() returns all records (internally uses size = Integer.MAX_VALUE).
+**Pagination.unpaged()** returns all records (internally uses size = Integer.MAX_VALUE).
 
 ---
 
@@ -104,14 +104,10 @@ Page<Order> page = repository.findByCustomerId(123L, p);
 
 ## Unpaged Behavior
 
-If a method is called with Pagination.unpaged(), Quartz will return all matching records with no limit applied.
+If a method is called with **Pagination.unpaged()**, Quartz will return all matching records with no limit applied.
 
 ```java
 List<User> users = userRepository.findByActiveTrue(Pagination.unpaged()).content();
 ```
 
 ---
-
-## Next Steps
-
-* [Creating Entities](/docs/data/creating-entities)

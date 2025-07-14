@@ -31,7 +31,8 @@ Quartz will automatically register and inject a proxy-backed implementation of t
 
 ## Built-in Default: InMemoryStorage
 
-Quartz Data comes with built-in support for **InMemoryStorage**, backed by a thread-safe **ConcurrentHashMap**. This is ideal for initial development, testing, or lightweight environments where persistence is not required.
+Quartz Data comes with built-in support for **InMemoryStorage**, backed by a thread-safe **ConcurrentHashMap**. 
+This is ideal for initial development, testing, or lightweight environments where persistence is not required.
 
 {% callout title="Zero Config" %}
 No setup is required, the necessary provider and executor are auto-registered.
@@ -43,13 +44,13 @@ No setup is required, the necessary provider and executor are auto-registered.
 
 Quartz storages support three dynamic operations:
 
-* `find` → for fetching data
-* `count` → for counting results
-* `exists` → for checking existence
+* **find** → for fetching data
+* **count** → for counting results
+* **exists** → for checking existence
 
-### `find` Return Types
+### 'find' Return Types
 
-The `find` operation supports multiple return types:
+The **find** operation supports multiple return types:
 
 | Return Type        | Description                                      |
 | ------------------ | ------------------------------------------------ |
@@ -64,18 +65,18 @@ The `find` operation supports multiple return types:
 Methods returning `Page<T>` must include a `Pagination` argument.
 {% /callout %}
 
-### `count` Return Types
+### 'count' Return Types
 
 Must return a numeric type:
 
-* `long`, `Long`
+* **long**, **Long**
 * Any subclass of `Number`
 
-### `exists` Return Types
+### 'exists' Return Types
 
 Must return:
 
-* `boolean`, `Boolean`
+* **boolean**, **Boolean**
 
 ---
 
@@ -83,7 +84,7 @@ Must return:
 
 Quartz supports two query declaration styles:
 
-* **Method name-based**: `findBy`, `countBy`, `existsBy`, etc.
+* **Method name-based**: **findBy**, **countBy**, **existsBy**, etc.
 * **Annotation-based with @Query** using QQL (Quartz Query Language)
 
 For more details, see:
@@ -95,7 +96,7 @@ For more details, see:
 
 ## Discovery & Registration
 
-Quartz automatically detects all **@Storage** interfaces located in the same package or subpackages of the class annotated with **@QuartzApplication**.
+Quartz automatically detects all **@Storage** interfaces located in the same package or subpackages of the class annotated with **@QuartzPlugin**.
 
 To explicitly include storages from other packages:
 
@@ -119,24 +120,24 @@ public class ExplicitStorageList {}
 
 ## Under the Hood
 
-1. **StorageDiscovery** scans for `@Storage` interfaces
-2. **StorageFactory** checks the `@SuperStorage` interface to determine the appropriate `StorageProvider`
-3. The provider creates the actual storage implementation and its corresponding `QueryExecutor`
-4. A proxy is created using `StorageMethodInterceptor`
-5. The proxy is registered via `StorageRegistrar` and becomes injectable
+1. **StorageDiscovery** scans for **@Storage** interfaces
+2. **StorageFactory** checks the **@SuperStorage** interface to determine the appropriate **StorageProvider**
+3. The provider creates the actual storage implementation and its corresponding **QueryExecutor**
+4. A proxy is created using **StorageMethodInterceptor**
+5. The proxy is registered via **StorageRegistrar** and becomes injectable
 
 ---
 
 ## Extending Quartz with Custom Storages
 
-You can define your own base storage type by creating an interface annotated with `@SuperStorage`:
+You can define your own base storage type by creating an interface annotated with **@SuperStorage**:
 
 ```cpp
 @SuperStorage(MyCustomStorageProvider.class)
 public interface RedisStorage<E, ID> extends SimpleStorage<E, ID> {}
 ```
 
-Then implement a custom `StorageProvider`:
+Then implement a custom **StorageProvider**:
 
 ```cpp
 public class MyCustomStorageProvider implements StorageProvider {
@@ -159,13 +160,6 @@ public MyCustomStorageProvider redisStorageProvider() {
 }
 ```
 
-Quartz will then recognize and route any storage that extends `RedisStorage<E, ID>` to your custom provider.
+Quartz will then recognize and route any storage that extends **RedisStorage<E, ID>** to your custom provider.
 
 ---
-
-## Next Steps
-
-* [Query Language (QQL)](/docs/data/qql)
-* [Method Name-Based Queries](/docs/data/method-based-queries)
-* [Pagination & Sorting](/docs/data/pagination)
-* [Creating Entities](/docs/data/creating-entities)

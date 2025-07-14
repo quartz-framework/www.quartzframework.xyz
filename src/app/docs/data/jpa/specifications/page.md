@@ -14,7 +14,7 @@ Inspired by the Specification pattern in **Domain-Driven Design (DDD)** and adop
 
 ## What is a Specification?
 
-At its core, a query specification is an implementation of the `QuerySpecification<T>` functional interface:
+At its core, a query specification is an implementation of the **QuerySpecification<T>** functional interface:
 
 ```java
 @FunctionalInterface
@@ -23,7 +23,7 @@ public interface QuerySpecification<T> {
 }
 ```
 
-This method describes the predicate (or condition) that defines your query. For example, to find users with the username `"admin"`:
+This method describes the predicate (or condition) that defines your query. For example, to find users with the username **"admin"**:
 
 ```java
 QuerySpecification<UserEntity> spec = (root, query, cb) ->
@@ -36,7 +36,7 @@ You write queries without strings, fully validated at compile time, with full re
 
 ## Executing a Specification
 
-All storages extending `QuerySpecificationExecutor` can execute these specifications natively:
+All storages extending **QuerySpecificationExecutor** can execute these specifications natively:
 
 ```java
 List<UserEntity> all = userStorage.find(spec);
@@ -48,7 +48,7 @@ boolean exists = userStorage.exists(spec);
 long total = userStorage.count(spec);
 ```
 
-Specifications are resolved and executed internally using the **Criteria API** in combination with `EntityManager`.
+Specifications are resolved and executed internally using the **Criteria API** in combination with **EntityManager**.
 
 ---
 
@@ -83,7 +83,7 @@ Page<UserEntity> result = userStorage.find(spec, pagination);
 List<UserEntity> sorted = userStorage.find(spec, sort);
 ```
 
-This works seamlessly with the underlying Hibernate `EntityManager`
+This works seamlessly with the underlying Hibernate **EntityManager**
 
 ---
 

@@ -14,13 +14,7 @@ Quartz Framework's DI system is built around annotations, offering a lightweight
 
 ## Beans and Annotations
 
-In Quartz, objects managed by the DI container are called beans. To be recognized as a bean, a class must be annotated with one of the supported bean-level annotations, most commonly `@Injectable`, but other types like `@Bootstrapper` and `@Configurer` are also valid and will be covered in future sections.
-
-{% callout title="Spring Support" %}
-
-`@Injectable` is annotated with `@ManagedBean`, which ensures support with the Spring ecosystem. Also, if you use `@ManagedBean` instead of `@Injectable`, Quartz will be able to recognize it as an injectable normally.
-
-{% /callout %}
+In Quartz, objects managed by the DI container are called beans. To be recognized as a bean, a class must be annotated with one of the supported bean-level annotations, most commonly **@Injectable**, but other types like **@Bootstrapper** and **@Configurer** are also valid and will be covered in future sections.
 
 ```java
 @Injectable

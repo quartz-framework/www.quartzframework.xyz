@@ -20,7 +20,7 @@ You must place **@QuartzPlugin** on your main class to initialize Quartz properl
 
 - **verbose**: Enable detailed logs of boot process.
 
-- **enableConfigurers**: Whether or not to process **@Configurer** beans. Can be overridden on the annotation itself with **@Configurer(force = true)**.
+- **enableConfigurers**: Whether to process **@Configurer** beans. Can be overridden on the annotation itself with **@Configurer(force = true)**.
 
 ---
 
