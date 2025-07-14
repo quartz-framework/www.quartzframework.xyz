@@ -1,9 +1,14 @@
 @import 'tailwindcss';
-@import './prism.css';
+@import "./prism.css";
 
+@plugin 'tailwind-scrollbar';
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
 
 @theme {
   --text-*: initial;

@@ -1,10 +1,9 @@
 'use client'
 
-import { Suspense, useCallback, useEffect, useState } from 'react'
+import { Fragment, Suspense, useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { Dialog, DialogPanel } from '@headlessui/react'
-
+import { Dialog, Transition } from '@headlessui/react'
 import { Logomark } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
 
@@ -39,8 +38,8 @@ function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 function CloseOnNavigation({ close }: { close: () => void }) {
-  let pathname = usePathname()
-  let searchParams = useSearchParams()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     close()
@@ -50,11 +49,11 @@ function CloseOnNavigation({ close }: { close: () => void }) {
 }
 
 export function MobileNavigation() {
-  let [isOpen, setIsOpen] = useState(false)
-  let close = useCallback(() => setIsOpen(false), [setIsOpen])
+  const [isOpen, setIsOpen] = useState(false)
+  const close = useCallback(() => setIsOpen(false), [])
 
-  function onLinkClick(event: React.MouseEvent<HTMLAnchorElement>) {
-    let link = event.currentTarget
+  const onLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const link = event.currentTarget
     if (
       link.pathname + link.search + link.hash ===
       window.location.pathname + window.location.search + window.location.hash
@@ -68,36 +67,65 @@ export function MobileNavigation() {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="relative"
+        className="relative z-50 block lg:hidden"
         aria-label="Open navigation"
       >
-        <MenuIcon className="h-6 w-6 stroke-slate-500" />
+        <MenuIcon className="h-6 w-6 stroke-slate-500 dark:stroke-slate-400" />
       </button>
+
       <Suspense fallback={null}>
         <CloseOnNavigation close={close} />
       </Suspense>
-      <Dialog
-        open={isOpen}
-        onClose={() => close()}
-        className="fixed inset-0 z-50 flex items-start overflow-y-auto bg-slate-900/50 pr-10 backdrop-blur-sm lg:hidden"
-        aria-label="Navigation"
-      >
-        <DialogPanel className="min-h-full w-full max-w-xs bg-white px-4 pt-5 pb-12 sm:px-6 dark:bg-slate-900">
-          <div className="flex items-center">
-            <button
-              type="button"
-              onClick={() => close()}
-              aria-label="Close navigation"
-            >
-              <CloseIcon className="h-6 w-6 stroke-slate-500" />
-            </button>
-            <Link href="/" className="ml-6" aria-label="Home page">
-              <Logomark className="h-9 w-9" />
-            </Link>
-          </div>
-          <Navigation className="mt-5 px-1" onLinkClick={onLinkClick} />
-        </DialogPanel>
-      </Dialog>
+
+      <Transition show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-50 overflow-y-auto lg:hidden"
+          onClose={close}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-200"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <Transition.Child
+            as={Fragment}
+            enter="transition-transform duration-300 ease-in-out"
+            enterFrom="-translate-x-full"
+            enterTo="translate-x-0"
+            leave="transition-transform duration-200 ease-in-out"
+            leaveFrom="translate-x-0"
+            leaveTo="-translate-x-full"
+          >
+            <Dialog.Panel className="fixed left-0 top-0 z-50 h-full w-[80vw] max-w-xs bg-white dark:bg-slate-900 shadow-xl px-4 pt-5 pb-10 sm:px-6 flex flex-col">
+              <div className="flex items-center justify-between mb-4">
+                <Link href="/" aria-label="Home page">
+                  <Logomark className="h-8 w-8 scale-y-[-1]" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={close}
+                  aria-label="Close navigation"
+                >
+                  <CloseIcon className="h-6 w-6 stroke-slate-500 dark:stroke-slate-400" />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto
+  scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent dark:scrollbar-thumb-slate-600 dark:scrollbar-track-slate-800">
+                <Navigation className="px-1" onLinkClick={onLinkClick} />
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
+        </Dialog>
+      </Transition>
     </>
   )
 }

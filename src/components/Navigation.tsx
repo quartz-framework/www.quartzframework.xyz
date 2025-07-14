@@ -1,50 +1,155 @@
+'use client'
+
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
+import { useEffect, useRef, useState } from 'react'
+import { navigation, NavigationItem } from '@/lib/navigation'
 
-import { navigation } from '@/lib/navigation'
+const DEFAULT_OPEN: string[] = []
 
 export function Navigation({
-  className,
-  onLinkClick,
-}: {
+                             className,
+                             onLinkClick,
+                           }: {
   className?: string
   onLinkClick?: React.MouseEventHandler<HTMLAnchorElement>
 }) {
-  let pathname = usePathname()
+  const pathname = usePathname()
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
+  const itemRefs = useRef<Record<string, HTMLLIElement | null>>({})
 
-  return (
-    <nav className={clsx('text-base lg:text-sm', className)}>
-      <ul role="list" className="space-y-9">
-        {navigation.map((section) => (
-          <li key={section.title}>
-            <h2 className="font-display font-medium text-slate-900 dark:text-white">
-              {section.title}
-            </h2>
-            <ul
-              role="list"
-              className="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
-            >
-              {section.links.map((link) => (
-                <li key={link.href} className="relative">
+  useEffect(() => {
+    const stored = localStorage.getItem('quartz-open-sections')
+    if (stored) {
+      setOpenSections(JSON.parse(stored))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (Object.keys(openSections).length > 0) {
+      localStorage.setItem('quartz-open-sections', JSON.stringify(openSections))
+    }
+  }, [openSections])
+
+  const toggle = (path: string) => {
+    setOpenSections((prev) => ({ ...prev, [path]: !prev[path] }))
+  }
+
+  useEffect(() => {
+    function findAndOpen(items: NavigationItem[], parentPath = ''): boolean {
+      for (const item of items) {
+        const path = `${parentPath}/${item.title}`
+        if (item.href === pathname) {
+          setOpenSections((prev) => ({ ...prev, [path]: true }))
+          const ref = itemRefs.current[path]
+          if (ref) {
+            setTimeout(() => {
+              ref.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }, 100)
+          }
+          return true
+        }
+        if (item.children && findAndOpen(item.children, path)) {
+          setOpenSections((prev) => ({ ...prev, [path]: true }))
+          return true
+        }
+      }
+      return false
+    }
+
+    findAndOpen(navigation)
+  }, [pathname])
+
+  const renderTree = (
+    items: NavigationItem[],
+    parentPath: string = '',
+    level: number = 0
+  ): JSX.Element => {
+    return (
+      <ul
+        role="list"
+        className={clsx(
+          level === 0
+            ? 'space-y-6'
+            : 'mt-2 pl-4 space-y-2 border-l border-slate-200 dark:border-slate-700'
+        )}
+      >
+        {items.map((item) => {
+          const path = `${parentPath}/${item.title}`
+          const isOpen = openSections[path] ?? DEFAULT_OPEN.includes(item.title)
+          const isActive = item.href === pathname
+
+          const hasChildren = item.children && item.children.length > 0
+          const isCollapsible = hasChildren
+
+          return (
+            <li key={path} ref={(el) => (itemRefs.current[path] = el)}>
+              <div className="flex items-center justify-between pr-4">
+                {item.href && !hasChildren && (
                   <Link
-                    href={link.href}
+                    href={item.href}
                     onClick={onLinkClick}
                     className={clsx(
-                      'block w-full pl-3.5 before:pointer-events-none before:absolute before:top-1/2 before:-left-1 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full',
-                      link.href === pathname
-                        ? 'font-semibold text-sky-500 before:bg-sky-500'
-                        : 'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300',
+                      'block w-full pl-3.5',
+                      isActive
+                        ? 'font-semibold text-sky-500'
+                        : 'text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300'
                     )}
                   >
-                    {link.title}
+                    {item.title}
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
+                )}
+
+                {item.href && hasChildren && (
+                  <Link
+                    href={item.href}
+                    onClick={onLinkClick}
+                    className={clsx(
+                      'relative w-full text-left font-display font-medium text-slate-900 dark:text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500',
+                      level > 0 ? 'pl-3.5 pr-6' : 'pr-6'
+                    )}
+                  >
+                    <span>{item.title}</span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        toggle(path)
+                      }}
+                      aria-expanded={isOpen}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 text-xl leading-none"
+                    >
+                      {isOpen ? '−' : '+'}
+                    </button>
+                  </Link>
+                )}
+
+                {!item.href && hasChildren && (
+                  <button
+                    type="button"
+                    onClick={() => toggle(path)}
+                    aria-expanded={isOpen}
+                    className={clsx(
+                      'w-full text-left font-display font-medium text-slate-900 dark:text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500',
+                      level > 0 ? 'pl-3.5' : ''
+                    )}
+                  >
+                    <span>{item.title}</span>
+                    <span className="float-right text-slate-400 dark:text-slate-500 text-xl leading-none">
+                    {isOpen ? '−' : '+'}
+                  </span>
+                  </button>
+                )}
+              </div>
+
+              {hasChildren && isOpen && renderTree(item.children!, path, level + 1)}
+            </li>
+          )
+        })}
       </ul>
-    </nav>
-  )
+    )
+  }
+
+  return <nav className={clsx('text-base lg:text-sm', className)}>{renderTree(navigation)}</nav>
 }

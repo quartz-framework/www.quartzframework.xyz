@@ -1,31 +1,23 @@
 ---
-title: Quartz Core
+title: Core Concepts
 nextjs:
   metadata:
-    title: Quartz Core
-    description: Learn how Quartz Core powers the foundation of your plugin's architecture.
+    title: Core Concepts
+    description: Understand the foundational role of Quartz Core in the framework architecture.
 ---
 
-Quartz Core is the heart of the Quartz Framework — a lightweight, platform-agnostic, modular foundation that provides the essential infrastructure for building robust and maintainable Minecraft systems.
+Quartz Core defines the base architecture of the Quartz Framework, a lightweight, annotation-based foundation that powers all module features without enforcing any opinionated logic.
 
-It is responsible for:
+It provides:
 
-- Dependency Injection and lifecycle management
+- The structural backbone for all Quartz modules
+- Lightweight dependency injection and lifecycle handling
+- Modular context bootstrapping and plugin wiring
 
-- Bean discovery, scopes, and configuration
+By itself, Quartz Core doesn't offer plugin-specific behavior, instead, it exposes all the tools needed to build, wire, and configure systems on top of it. Think of it as the minimal runtime that other Quartz modules plug into.
 
-- Context bootstrapping and lifecycle phases
+If you're familiar with frameworks like Spring, you’ll recognize familiar patterns, but stripped down for performance, clarity, and control.
 
-Whether you're developing a plugin for any supported platform or even building your own extensions, Quartz Core handles the boilerplate so you can focus on your logic.
-
-If you're familiar with Spring-like patterns, Quartz will feel intuitive — but without the weight or complexity.
-
-{% callout title="You should know" %}
-
-Most features of Quartz Core are annotation-based and require no external configuration.
-
+{% callout title="Heads up" %}
+Quartz Core is not meant to be used directly in most cases. It exists to support other modules like `quartz-beans`, `quartz-config`, and any custom tooling you build on top of the framework.
 {% /callout %}
-
-## Learn More
-
-Ready to dive into Quartz Core? Start reading [Quartz Application Guide](/docs/core/quartz-application).

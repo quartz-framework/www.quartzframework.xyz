@@ -66,7 +66,7 @@ export function ThemeSelector(
   }
 
   return (
-    <Listbox as="div" value={theme} onChange={setTheme} {...props}>
+    <Listbox as="div" value={theme} onChange={setTheme} className="relative" {...props}>
       <Label className="sr-only">Theme</Label>
       <ListboxButton
         className="flex h-6 w-6 items-center justify-center rounded-lg shadow-md ring-1 shadow-black/5 ring-black/5 dark:bg-slate-700 dark:ring-white/5 dark:ring-inset"

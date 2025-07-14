@@ -14,7 +14,7 @@ Quartz Framework provides native support for Aspect-Oriented Programming (AOP) u
 
 Any bean annotated with **@Aspect** (from the AspectJ lang annotation package) is recognized and processed by Quartz.
 
-```cpp
+```java
 @Aspect
 @Slf4j
 @Injectable
@@ -51,7 +51,7 @@ However, Spring AOP is limited to:
 
 If you're using Spring-style aspects (e.g., **@Around**, **@Before**, etc.), those will work only if the target methods are public and invoked through the proxy.
 
-```cpp
+```java
 @Aspect
 @Injectable
 public class MyAspect {
@@ -74,6 +74,6 @@ Use **@NoProxy** if a bean should not be wrapped by Quartz proxies
 
 {% callout title="You should know" %}
 
-Remember that AOP in Quartz is enabled by default — no extra config required
+Remember that AOP in Quartz is enabled by default, no extra config required
 
 {% /callout %}

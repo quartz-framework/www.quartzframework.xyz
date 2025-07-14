@@ -30,15 +30,17 @@ l-40 -142 -682 -598 c-374 -329 -723 -635 -774 -681 -51 -46 -95 -82 -97 -80
 
 export function Logomark(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg className="scale-y-[-1]" viewBox="0 0 250 36" fill="none" {...props} version="1.0" xmlns="http://www.w3.org/2000/svg">
-      <LogomarkPaths/>
+    <svg
+      {...props}
+    >
+      <LogomarkPaths />
     </svg>
   )
 }
 
 export function Logo(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-      <svg viewBox="0 0 250 36" fill="none" aria-hidden="true" {...props}>
+      <svg viewBox="0 0 36 36" fill="none" aria-hidden="true" {...props}>
           <LogomarkPaths/>
       </svg>
   )

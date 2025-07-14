@@ -31,25 +31,52 @@ export function TableOfContents({
 
   useEffect(() => {
     if (tableOfContents.length === 0) return
-    let headings = getHeadings(tableOfContents)
-    function onScroll() {
-      let top = window.scrollY
-      let current = headings[0].id
-      for (let heading of headings) {
-        if (top >= heading.top - 10) {
-          current = heading.id
-        } else {
-          break
+
+    const headingElements = tableOfContents
+      .flatMap((node) => [node.id, ...node.children.map((child) => child.id)])
+      .map((id) => document.getElementById(id))
+      .filter(Boolean)
+
+    if (headingElements.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10
+        if (atBottom) {
+          const last = headingElements[headingElements.length - 1]
+          if (last) {
+            setCurrentSection(last.id)
+            return
+          }
         }
+        let maxVisibleEntry: IntersectionObserverEntry | null = null
+        let maxRatio = 0
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+            maxVisibleEntry = entry
+            maxRatio = entry.intersectionRatio
+          }
+        }
+        if (maxVisibleEntry) {
+          setCurrentSection(maxVisibleEntry.target.id)
+        }
+      },
+      {
+        rootMargin: '0px 0px -60% 0px',
+        threshold: [0, 0.1, 0.5, 1],
       }
-      setCurrentSection(current)
+    )
+
+    for (const el of headingElements) {
+      observer.observe(el!)
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+
     return () => {
-      window.removeEventListener('scroll', onScroll)
+      for (const el of headingElements) {
+        observer.unobserve(el!)
+      }
     }
-  }, [getHeadings, tableOfContents])
+  }, [tableOfContents])
 
   function isActive(section: Section | Subsection) {
     if (section.id === currentSection) {

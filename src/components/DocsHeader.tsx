@@ -5,20 +5,30 @@ import { usePathname } from 'next/navigation'
 import { navigation } from '@/lib/navigation'
 
 export function DocsHeader({ title }: { title?: string }) {
-  let pathname = usePathname()
-  let section = navigation.find((section) =>
-    section.links.find((link) => link.href === pathname),
-  )
 
-  if (!title && !section) {
+  function findSectionTitle(items: typeof navigation, pathname: string, parentTitle?: string): string | undefined {
+    for (const item of items) {
+      if (item.href === pathname) return parentTitle
+      if (item.children) {
+        const found = findSectionTitle(item.children, pathname, item.title)
+        if (found) return found
+      }
+    }
+    return undefined
+  }
+
+  let pathname = usePathname()
+  const sectionTitle = findSectionTitle(navigation, pathname)
+
+  if (!title && !sectionTitle) {
     return null
   }
 
   return (
     <header className="mb-9 space-y-1">
-      {section && (
+      {sectionTitle && (
         <p className="font-display text-sm font-medium text-sky-500">
-          {section.title}
+          {sectionTitle}
         </p>
       )}
       {title && (

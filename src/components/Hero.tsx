@@ -1,27 +1,39 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import Image from 'next/image'
 import clsx from 'clsx'
-import {Highlight, themes} from 'prism-react-renderer'
+import { Highlight, Prism, themes } from 'prism-react-renderer'
 
 import { Button } from '@/components/Button'
 import { HeroBackground } from '@/components/HeroBackground'
 import blurCyanImage from '@/images/blur-cyan.png'
 import blurIndigoImage from '@/images/blur-indigo.png'
 import { GITHUB_URL } from '@/lib/constants'
+import { currentTheme } from '@/markdoc/theme'
 
-const codeLanguage = 'javascript'
-const code = `@Injectable
+const codeExamples = [
+  {
+    name: 'PingCommand.java',
+    language: 'java',
+    code: `@Injectable
 @Command(name = "ping")
 public class PingCommand implements Callable<String> {
-
     @Override
     public String call() {
         return "Pong!";
     }
 }`
-
-const tabs = [
-  { name: 'PingCommand.java', isActive: true },
+  },
+  {
+    name: 'MyPlugin.java',
+    language: 'java',
+    code: `@QuartzPlugin
+public class MyPlugin implements BungeePlugin {
+    @Override
+    public void main() {
+        builder(this).build();
+    }
+}`
+  }
 ]
 
 function TrafficLightsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -35,6 +47,13 @@ function TrafficLightsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 export function Hero() {
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeExample = codeExamples[activeIndex];
+
+  (typeof global !== "undefined" ? global : window).Prism = Prism
+  require("prismjs/components/prism-java")
+
   return (
     <div className="overflow-hidden bg-slate-900 dark:mt-[-4.75rem] dark:-mb-32 dark:pt-[4.75rem] dark:pb-32">
       <div className="py-16 sm:px-2 lg:relative lg:px-0 lg:py-20">
@@ -65,50 +84,28 @@ export function Hero() {
             </div>
           </div>
           <div className="relative lg:static xl:pl-10">
-            <div className="absolute inset-x-[-50vw] -top-32 -bottom-48 mask-[linear-gradient(transparent,white,white)] lg:-top-32 lg:right-0 lg:-bottom-32 lg:left-[calc(50%+14rem)] lg:mask-none dark:mask-[linear-gradient(transparent,white,transparent)] lg:dark:mask-[linear-gradient(white,white,transparent)]">
-              <HeroBackground className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:left-0 lg:translate-x-0 lg:translate-y-[-60%]" />
-            </div>
             <div className="relative">
-              <Image
-                className="absolute -top-64 -right-64"
-                src={blurCyanImage}
-                alt=""
-                width={530}
-                height={530}
-                unoptimized
-                priority
-              />
-              <Image
-                className="absolute -right-44 -bottom-40"
-                src={blurIndigoImage}
-                alt=""
-                width={567}
-                height={567}
-                unoptimized
-                priority
-              />
-              <div className="absolute inset-0 rounded-2xl bg-linear-to-tr from-sky-300 via-sky-300/70 to-blue-300 opacity-10 blur-lg" />
-              <div className="absolute inset-0 rounded-2xl bg-linear-to-tr from-sky-300 via-sky-300/70 to-blue-300 opacity-10" />
               <div className="relative rounded-2xl bg-[#0A101F]/80 ring-1 ring-white/10 backdrop-blur-sm">
                 <div className="absolute -top-px right-11 left-20 h-px bg-linear-to-r from-sky-300/0 via-sky-300/70 to-sky-300/0" />
                 <div className="absolute right-20 -bottom-px left-11 h-px bg-linear-to-r from-blue-400/0 via-blue-400 to-blue-400/0" />
                 <div className="pt-4 pl-4">
                   <TrafficLightsIcon className="h-2.5 w-auto stroke-slate-500/30" />
                   <div className="mt-4 flex space-x-2 text-xs">
-                    {tabs.map((tab) => (
+                    {codeExamples.map((tab, idx) => (
                       <div
                         key={tab.name}
+                        onClick={() => setActiveIndex(idx)}
                         className={clsx(
-                          'flex h-6 rounded-full',
-                          tab.isActive
+                          'cursor-pointer flex h-6 rounded-full',
+                          idx === activeIndex
                             ? 'bg-linear-to-r from-sky-400/30 via-sky-400 to-sky-400/30 p-px font-medium text-sky-300'
-                            : 'text-slate-500',
+                            : 'text-slate-500'
                         )}
                       >
                         <div
                           className={clsx(
                             'flex items-center rounded-full px-2.5',
-                            tab.isActive && 'bg-slate-800',
+                            idx === activeIndex && 'bg-slate-800',
                           )}
                         >
                           {tab.name}
@@ -122,7 +119,7 @@ export function Hero() {
                       className="border-r border-slate-300/5 pr-4 font-mono text-slate-600 select-none"
                     >
                       {Array.from({
-                        length: code.split('\n').length,
+                        length: activeExample.code.split('\n').length,
                       }).map((_, index) => (
                         <Fragment key={index}>
                           {(index + 1).toString().padStart(2, '0')}
@@ -131,9 +128,9 @@ export function Hero() {
                       ))}
                     </div>
                     <Highlight
-                      code={code}
-                      language={codeLanguage}
-                      theme={{styles: themes['vsDark']['styles'], plain: {} }}
+                      code={activeExample.code}
+                      language={activeExample.language}
+                      theme={{ styles: currentTheme['styles'], plain: {} }}
                     >
                       {({
                         className,

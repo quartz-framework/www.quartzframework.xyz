@@ -21,7 +21,7 @@ import {
 import { Dialog, DialogPanel } from '@headlessui/react'
 import clsx from 'clsx'
 
-import { navigation } from '@/lib/navigation'
+import { navigation, NavigationItem } from '@/lib/navigation'
 import { type Result } from '@/markdoc/search.mjs'
 
 type EmptyObject = Record<string, never>
@@ -161,12 +161,25 @@ function SearchResult({
 }) {
   let id = useId()
 
-  let sectionTitle = navigation.find((section) =>
-    section.links.find((link) => link.href === result.url.split('#')[0]),
-  )?.title
-  let hierarchy = [sectionTitle, result.pageTitle].filter(
-    (x): x is string => typeof x === 'string',
-  )
+  function findHierarchy(
+    items: NavigationItem[],
+    url: string,
+    ancestors: string[] = []
+  ): string[] | null {
+    for (const item of items) {
+      const currentPath = [...ancestors, item.title]
+
+      if (item.href === url) return currentPath
+      if (item.children) {
+        const match = findHierarchy(item.children, url, currentPath)
+        if (match) return match
+      }
+    }
+    return null
+  }
+
+  const url = result.url.split('#')[0]
+  const hierarchy = findHierarchy(navigation, url) ?? [result.pageTitle]
 
   return (
     <li
@@ -192,7 +205,7 @@ function SearchResult({
         >
           {hierarchy.map((item, itemIndex, items) => (
             <Fragment key={itemIndex}>
-              <HighlightQuery text={item} query={query} />
+              <HighlightQuery text={item || ''} query={query} />
               <span
                 className={
                   itemIndex === items.length - 1

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-import { navigation } from '@/lib/navigation'
+import { navigation, NavigationItem } from '@/lib/navigation'
 
 function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -15,15 +15,15 @@ function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 function PageLink({
-  title,
-  href,
-  dir = 'next',
-  ...props
-}: Omit<React.ComponentPropsWithoutRef<'div'>, 'dir' | 'title'> & {
-  title: string
-  href: string
+                    title,
+                    href,
+                    dir = 'next',
+                    ...props
+                  }: Omit<React.ComponentPropsWithoutRef<'div'>, 'dir'> & NavigationItem & {
   dir?: 'previous' | 'next'
 }) {
+  if (!href) return null // safety guard
+
   return (
     <div {...props}>
       <dt className="font-display text-sm font-medium text-slate-900 dark:text-white">
@@ -51,8 +51,24 @@ function PageLink({
 }
 
 export function PrevNextLinks() {
-  let pathname = usePathname()
-  let allLinks = navigation.flatMap((section) => section.links)
+
+
+  function flattenNavigation(items: NavigationItem[]): NavigationItem[] {
+    const result: NavigationItem[] = []
+
+    function walk(nodes: NavigationItem[]) {
+      for (const node of nodes) {
+        if (node.href) result.push({ title: node.title, href: node.href })
+        if (node.children) walk(node.children)
+      }
+    }
+
+    walk(items)
+    return result
+  }
+
+  const pathname = usePathname()
+  const allLinks = flattenNavigation(navigation)
   let linkIndex = allLinks.findIndex((link) => link.href === pathname)
   let previousPage = linkIndex > -1 ? allLinks[linkIndex - 1] : null
   let nextPage = linkIndex > -1 ? allLinks[linkIndex + 1] : null
@@ -61,10 +77,26 @@ export function PrevNextLinks() {
     return null
   }
 
+  function omitNavigationChildren(item: NavigationItem): { title: string; href: string } {
+    const { title, href = '' } = item
+    return { title, href }
+  }
+
   return (
     <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
-      {previousPage && <PageLink dir="previous" {...previousPage} />}
-      {nextPage && <PageLink className="ml-auto text-right" {...nextPage} />}
+      {previousPage && (
+        <PageLink
+          dir="previous"
+          {...(omitNavigationChildren(previousPage))}
+        />
+      )}
+
+      {nextPage && (
+        <PageLink
+          className="ml-auto text-right"
+          {...(omitNavigationChildren(nextPage))}
+        />
+      )}
     </dl>
   )
 }

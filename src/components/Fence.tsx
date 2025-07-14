@@ -1,7 +1,8 @@
 'use client'
 
 import { Fragment } from 'react'
-import { Highlight } from 'prism-react-renderer'
+import { Highlight, Prism, themes } from 'prism-react-renderer'
+import { currentTheme } from '@/markdoc/theme'
 
 export function Fence({
   children,
@@ -10,11 +11,15 @@ export function Fence({
   children: string
   language: string
 }) {
+
+  (typeof global !== "undefined" ? global : window).Prism = Prism
+  require("prismjs/components/prism-java")
+
   return (
     <Highlight
       code={children.trimEnd()}
       language={language}
-      theme={{ plain: {}, styles: [] }}
+      theme={{styles: currentTheme['styles'], plain: {} }}
     >
       {({ className, style, tokens, getTokenProps }) => (
         <pre className={className} style={style}>

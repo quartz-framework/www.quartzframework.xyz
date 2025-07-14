@@ -38,28 +38,29 @@ function Header() {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 sm:px-6 lg:px-8 dark:shadow-none',
+        'sticky top-0 z-50 w-full grid grid-cols-3 items-center bg-white px-4 py-4 shadow-md shadow-slate-900/5 transition duration-500 sm:px-6 lg:px-8 dark:shadow-none',
         isScrolled
           ? 'dark:bg-slate-900/95 dark:backdrop-blur-sm dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
           : 'dark:bg-transparent',
       )}
     >
-      <div className="mr-6 flex lg:hidden">
-        <MobileNavigation />
-      </div>
-      <div className="relative flex grow basis-0 items-center">
+      <div className="flex justify-start items-center gap-4">
         <Link href="/" aria-label="Home page">
-          <Logo className="h-9 w-auto scale-y-[-1] fill-slate-700 block dark:fill-sky-100" />
+          <Logo className="h-9 w-auto scale-y-[-1] fill-slate-700 dark:fill-sky-100" />
         </Link>
-      </div>
-      <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
-        <Search />
-      </div>
-      <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:grow">
-        <ThemeSelector className="relative z-10" />
-        <Link target={"_blank"} href={GITHUB_URL} className="group" aria-label="GitHub">
+        <Link target="_blank" href={GITHUB_URL} className="group" aria-label="GitHub">
           <GitHubIcon className="h-6 w-6 fill-slate-400 group-hover:fill-slate-500 dark:group-hover:fill-slate-300" />
         </Link>
+        <ThemeSelector className="relative z-10" />
+      </div>
+      <div className="flex justify-center lg:justify-start">
+
+      </div>
+      <div className="flex items-center justify-end gap-4 sm:gap-6">
+        <Search />
+        <div className="lg:hidden">
+          <MobileNavigation />
+        </div>
       </div>
     </header>
   )
@@ -80,8 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
           <div className="absolute top-16 right-0 bottom-0 hidden h-12 w-px bg-linear-to-t from-slate-800 dark:block" />
           <div className="absolute top-28 right-0 bottom-0 hidden w-px bg-slate-800 dark:block" />
-          <div className="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-x-hidden overflow-y-auto py-16 pr-8 pl-0.5 xl:w-72 xl:pr-16">
-            <Navigation />
+          <div className="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-x-hidden overflow-y-auto py-10 pr-4 pl-2 xl:w-72 xl:pr-6">            <Navigation />
           </div>
         </div>
         {children}
