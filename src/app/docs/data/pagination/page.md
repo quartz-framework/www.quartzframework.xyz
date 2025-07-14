@@ -2,8 +2,8 @@
 title: Pagination & Sorting
 nextjs:
   metadata:
-    title: Pagination & Sorting
-    description: Quartz Data provides built-in support for pagination and sorting via the Pagination interface and the Page<T> result container. When your query method accepts a Pagination parameter and returns a Page<T>, Quartz will automatically handle pagination and sorting at the query level.
+    title: Pagination in Quartz Data
+    description: Use the Pagination interface to retrieve paged results with automatic sorting support. Standalone sorting is not supported at this time.
 ---
 
 ## Using Pagination

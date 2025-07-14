@@ -2,8 +2,8 @@
 title: Quartz Plugin
 nextjs:
   metadata:
-    title: Quartz Plugin
-    description: Understand why @QuartzPlugin is the most important annotation in the Quartz Framework ecosystem.
+    title: Defining a Quartz Plugin
+    description: The @QuartzPlugin annotation marks the entry point of a module, enabling Quartz to discover components, initialize dependencies, and activate features.
 ---
 
 The **@QuartzPlugin** annotation is the entry point of any Quartz-based application. It defines the root of the context and controls scanning, behavior, and bootstrapping options.

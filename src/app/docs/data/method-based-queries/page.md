@@ -2,8 +2,8 @@
 title: Method Name-Based Queries
 nextjs:
   metadata:
-    title: Method Name-Based Queries
-    description: Learn how to write dynamic queries using Method Name-Based Queries
+    title: Building Queries from Method Names
+    description: Define dynamic database queries by simply writing method names that follow a readable pattern
 ---
 
 In addition to annotation-based queries using **@Query**, Quartz also supports method name-based queries, 

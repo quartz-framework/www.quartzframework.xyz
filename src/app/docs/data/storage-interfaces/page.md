@@ -101,6 +101,7 @@ Quartz automatically detects all **@Storage** interfaces located in the same pac
 To explicitly include storages from other packages:
 
 ```cpp
+@Bootstrapper
 @DiscoverStorages(basePackages = "com.example.external")
 public class ExternalStorageDiscovery {}
 ```
@@ -108,12 +109,13 @@ public class ExternalStorageDiscovery {}
 Or to register specific ones manually:
 
 ```cpp
+@Bootstrapper
 @DiscoverStorages({EmployeeStorage.class, ProductStorage.class})
 public class ExplicitStorageList {}
 ```
 
 {% callout title="You should know" %}
-`@DiscoverStorages` must be placed on a valid Quartz bean, such as one annotated with `@Bootstrapper`, `@Injectable`, or directly on your `@QuartzApplication` class.
+`@DiscoverStorages` must be placed on a valid Quartz bean, such as one annotated with `@Bootstrapper`, `@Injectable`, or directly on your `@QuartzPlugin` class.
 {% /callout %}
 
 ---

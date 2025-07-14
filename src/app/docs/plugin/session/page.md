@@ -2,8 +2,8 @@
 title: Session Management
 nextjs:
   metadata:
-    title: Session Management
-    description: Track sender context across all execution paths using Quartz Framework.
+    title: Propagate Sender Context Everywhere
+    description: Keep track of the active sender across threads, command chains, and schedulers using Quartz's session propagation system.
 ---
 
 Quartz Framework introduces a powerful and transparent sender-aware context system called Session Management. This mechanism allows you to access contextual information about the sender (e.g. a player, console, or command source) without explicitly passing it down through method arguments.

@@ -124,7 +124,7 @@ public class MetricsConfigurer {
 
 Configurers run before `@Bootstrapper` or general beans are initialized.
 
-If the main class is annotated with `@QuartzApplication(enableConfigurers = false)`, configurers will be skipped unless they are marked with `@Configurer(force = true)`.
+If the main class is annotated with `@QuartzPlugin(enableConfigurers = false)`, configurers will be skipped unless they are marked with `@Configurer(force = true)`.
 
 {% /callout %}
 

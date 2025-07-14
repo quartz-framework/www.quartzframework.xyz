@@ -1,9 +1,9 @@
 ---
-title: Quartz Spigot Plugin Starter
+title: Quartz Starter Spigot Plugin
 nextjs:
   metadata:
-    title: Get started with Quartz Framework on Spigot
-    description: Build Spigot-based plugins with lifecycle, DI, AOP, cli, and more.
+    title: Get Started with Quartz on Spigot
+    description: Build modern Spigot plugins with lifecycle management, dependency injection, AOP, CLI commands, and more using Quartz Framework.
 ---
 
 Quartz Spigot Plugin Starter is the official entry point for building Spigot, Paper, and forked server plugins using the Quartz Framework. It offers a structured and extensible boot layer that integrates tightly with Quartz Core, providing lifecycle hooks, dependency injection, AOP support, command handling, scheduled tasks, configuration binding, and event listening out of the box.

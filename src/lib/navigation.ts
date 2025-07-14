@@ -127,7 +127,7 @@ export const navigation: NavigationItem[] = [
       { title: 'Pagination', href: '/docs/data/pagination' },
       { title: 'Query Language (QQL)', href: '/docs/data/qql' },
       { title: 'Method Based Queries', href: '/docs/data/method-based-queries' },
-      { title: 'Creating Entities', href: '/docs/data/creating-entities' },
+      { title: 'Entities', href: '/docs/data/entities' },
       {
         title: 'JPA',
         children: [

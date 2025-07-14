@@ -2,8 +2,8 @@
 title: Quartz Data JPA
 nextjs:
   metadata:
-    title: Quartz Data JPA
-    description: Learn how Quartz Data provides a flexible abstraction for data access in Quartz Framework
+    title: JPA Storage Layer for Quartz Data
+    description: Enable JPA-based persistence in Quartz Data with dynamic queries, projections, and transactional support
 ---
 
 ## Getting Started with Quartz Data JPA

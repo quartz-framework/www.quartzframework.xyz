@@ -32,7 +32,7 @@ Quartz is designed for JVM environments requiring strict classloader isolation a
 
 Quartz provides a custom dependency injection container with advanced features including explicit bean registration, qualified injection, and support for proxy handling. It implements custom lifecycle scopes beyond singleton and prototype, allowing deferred initialization and context-scoped beans.
 
-The DI system performs context-aware resolution using static metadata, avoiding runtime reflection. It supports lifecycle annotations such as `@ContextLoads` and `@PreDestroy`, enabling precise control over bean initialization and destruction. Proxy creation is integrated into the lifecycle, facilitating AOP and scoped proxy support without dynamic bytecode weaving.
+The DI system performs context-aware resolution using static metadata, avoiding runtime reflection. It supports lifecycle annotations such as **@ContextLoads** and **@PreDestroy**, enabling precise control over bean initialization and destruction. Proxy creation is integrated into the lifecycle, facilitating AOP and scoped proxy support without dynamic bytecode weaving.
 
 ### Modular Lifecycle Management
 
@@ -48,7 +48,7 @@ The configuration system merges multiple sources statically at startup, avoiding
 
 ### Native Asynchronous Support
 
-Quartz integrates asynchronous execution primitives with fine-grained control over executors and thread contexts. It supports declarative asynchronous task execution via annotations such as `@Async`, ensuring tasks run within thread-isolated environments that preserve classloader boundaries.
+Quartz integrates asynchronous execution primitives with fine-grained control over executors and thread contexts. It supports declarative asynchronous task execution via annotations such as **@Async**, ensuring tasks run within thread-isolated environments that preserve classloader boundaries.
 
 The asynchronous framework is designed for plugin-reload safety, preventing resource leaks and ensuring deterministic scheduling. Platform-specific adaptations, such as tick-based scheduling for Minecraft, are supported to maintain consistency across diverse runtime environments.
 

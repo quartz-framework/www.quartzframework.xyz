@@ -1,9 +1,9 @@
 ---
-title: Quartz Bungee Plugin Starter
+title: Quartz Starter Bungee Plugin
 nextjs:
   metadata:
-    title: Get started with Quartz Framework on BungeeCord
-    description: Learn how Quartz Core powers the foundation of your plugin's architecture.
+    title: Get Started with Quartz on BungeeCord
+    description: Use Quartz Core to power BungeeCord plugins with a robust architecture, modular lifecycle, and advanced DI support.
 ---
 
 Quartz Bungee Plugin Starter is the official way to build plugins for BungeeCord and forks using the Quartz Framework. It brings the full power of Quartz Core to the proxy layer, enabling structured development with lifecycle hooks, dependency injection, AOP, task scheduling, command parsing, event listeners, and more.

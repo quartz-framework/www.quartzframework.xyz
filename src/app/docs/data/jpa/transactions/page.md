@@ -18,16 +18,14 @@ Transactional support is **opt-in**. To enable it, simply annotate your main ent
 
 ```java
 @EnableTransactionalSupport
-public class MyQuartzApp {
-    public static void main(String[] args) {
-        // bootstrap logic
-    }
+public class MyTransactionalBootstrapper {
+   
 }
 ```
 
 This activates Quartz's internal transaction interceptor.
 
-### Using `@Transactional`
+### Using @Transactional
 
 Once enabled, you can annotate methods or entire classes with **@jakarta.transaction.Transactional** or **@org.springframework.transaction.annotation.Transactional**:
 

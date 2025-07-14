@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Quartz Data
 nextjs:
   metadata:
     title: Getting Started

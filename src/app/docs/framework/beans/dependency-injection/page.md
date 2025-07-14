@@ -158,7 +158,7 @@ All public and private-package classes are scanned as injectables. Fields and me
 
 By default, all beans are **Singletons**, meaning one instance per application context.
 
-Use `@Prototype` to mark a bean as non-singleton, meaning each injection point will receive a new instance.
+Use **@Prototype** to mark a bean as non-singleton, meaning each injection point will receive a new instance.
 
 ```java
 @Prototype

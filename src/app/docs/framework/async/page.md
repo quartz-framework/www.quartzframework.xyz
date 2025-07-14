@@ -12,7 +12,7 @@ Quartz Framework provides an annotation-based mechanism for running methods asyn
 
 ## Enabling Async Support
 
-To enable async method execution, annotate any class (e.g. your main class) with **@EnableAsyncMethods**:
+To enable async method execution, annotate any bean (e.g. your @QuartzPlugin class) with **@EnableAsyncMethods**:
 
 ```java
 @EnableAsyncMethods

@@ -2,8 +2,8 @@
 title: Command System
 nextjs:
   metadata:
-    title: Command System
-    description: Use a powerful Picocli-based command framework integrated with Quartz’s DI and session system.
+    title: CLI Commands with Quartz
+    description: Create powerful CLI commands using Picocli, with full support for Quartz’s DI, session scope, and lifecycle hooks.
 ---
 
 Quartz Framework features a fully-integrated, annotation-driven Command System built on top of [Picocli](https://picocli.info), enabling expressive, type-safe command registration with native support for dependency injection, conversion, sender session tracking, and modular composition.

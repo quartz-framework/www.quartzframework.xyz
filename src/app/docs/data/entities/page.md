@@ -1,9 +1,9 @@
 ---
-title: Creating Entities
+title: Entity Modeling
 nextjs:
   metadata:
-    title: Method Name-Based Queries
-    description: Learn how to write dynamic queries using Method Name-Based Queries
+    title: Modeling Data with Quartz Entities
+    description: Structure your data with annotated entities and unlock powerful query features in Quartz Data
 ---
 
 Quartz Data allows you to define entities as plain Java classes with annotated fields. These entities represent the structure of your data and are used both for persistence and query abstraction.
@@ -118,3 +118,27 @@ Examples:
 ```java
 List<Employee> findByDepartment_Name(String name); // resolves department.name
 ```
+
+## Discovery & Registration
+
+Quartz automatically detects all Entities located in the same package or subpackages of the class annotated with **@QuartzPlugin**.
+
+To explicitly include storages from other packages:
+
+```cpp
+@Bootstrapper
+@DiscoverEntities(basePackages = "com.example.external.modal")
+public class ExternalEntitiesDiscovery {}
+```
+
+Or to register specific ones manually:
+
+```cpp
+@Bootstrapper
+@DiscoverEntities({Employee.class, User.class})
+public class ExplicitStorageList {}
+```
+
+{% callout title="You should know" %}
+`@DiscoverEntities` must be placed on a valid Quartz bean, such as one annotated with `@Bootstrapper`, `@Injectable`, or directly on your `@QuartzPlugin` class.
+{% /callout %}

@@ -13,7 +13,7 @@ Quartz Data does **not** persist data itself — instead, it defines a powerful 
 ## Features
 
 * Implementation-agnostic abstraction (JPA, MongoDB, in-memory, etc.)
-* Annotation-based query definitions via `@Query`
+* Annotation-based query definitions via **@Query**
 * Method name-based queries (à la Spring Data)
 * Support for projections, pagination, sorting, filtering
 * Built-in support for custom **Quartz Query Language (QQL)**
